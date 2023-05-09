@@ -17,7 +17,7 @@ namespace ProblematicProblem
             if (answer == "no")
             {
                 Console.WriteLine("Goodbye!");
-                return; 
+                return;
             }
 
             bool cont = true;
@@ -26,7 +26,13 @@ namespace ProblematicProblem
             Console.Write("What is your name? ");
             string userName = Console.ReadLine();
             Console.Write("What is your age? ");
-            int userAge = int.Parse(Console.ReadLine());
+            int userAge;
+            while (!int.TryParse(Console.ReadLine(), out userAge))
+            {
+                Console.Write("Please enter a valid age: ");
+            }
+
+            
 
             Console.Write("Would you like to see the current list of activities? (yes/no): ");
             bool seeList = Console.ReadLine().ToLower() == "yes";
@@ -86,18 +92,26 @@ namespace ProblematicProblem
                 int randomNumber = rng.Next(activities.Count);
                 string randomActivity = activities[randomNumber];
 
-                if (userAge > 21 && randomActivity == "Wine Tasting")
+                if (userAge < 10 && randomActivity == "Paintball")
                 {
                     Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
                     Console.WriteLine("Pick something else!");
                     activities.Remove(randomActivity);
-                    randomNumber = rng.Next(activities.Count);
-                    randomActivity = activities[randomNumber];
+                    continue;
+                }
+                else if (userAge < 21 && randomActivity == "Wine Tasting")
+                {
+                    Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
+                    Console.WriteLine("Pick something else!");
+                    activities.Remove(randomActivity);
+                    continue;
                 }
 
-                Console.Write($"Ah got it! {randomActivity}, your random activity is: {userName}! Is this ok or do you want to grab another activity? (keep/redo): ");
-                cont = Console.ReadLine().ToLower() == "redo";
+                Console.Write($"Ah got it! {randomActivity}, your random activity is: {userName}! Do you want to generate another random activity? (yes/no): ");
+                cont = Console.ReadLine().ToLower() == "yes";
+
             }
         }
     }
 }
+
