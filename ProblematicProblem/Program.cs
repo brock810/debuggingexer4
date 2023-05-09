@@ -11,26 +11,28 @@ namespace ProblematicProblem
 
         static void Main(string[] args)
         {
-            Console.Write("Hello, welcome to the random activity generator! ");
-            Console.Write("Would you like to generate a random activity? (yes/no): ");
-            bool cont = Console.ReadLine().ToLower() == "yes";
-            Console.WriteLine();
+            Console.Write("Hello, welcome to the random activity generator!\nWould you like to generate a random activity? (yes/no): ");
+            string answer = Console.ReadLine().ToLower();
 
-            Console.Write("We are going to need your information first! What is your name? ");
+            if (answer == "no")
+            {
+                Console.WriteLine("Goodbye!");
+                return; 
+            }
+
+            bool cont = true;
+
+            Console.WriteLine("We are going to need your information first!");
+            Console.Write("What is your name? ");
             string userName = Console.ReadLine();
-            Console.WriteLine();
-
             Console.Write("What is your age? ");
             int userAge = int.Parse(Console.ReadLine());
-            Console.WriteLine();
 
             Console.Write("Would you like to see the current list of activities? (yes/no): ");
             bool seeList = Console.ReadLine().ToLower() == "yes";
-            Console.WriteLine();
-
             if (seeList)
             {
-                Console.WriteLine("Here are the current list of activities:");
+                Console.WriteLine("Current activities:");
                 foreach (string activity in activities)
                 {
                     Console.Write($"{activity} ");
@@ -40,25 +42,26 @@ namespace ProblematicProblem
 
                 Console.Write("Would you like to add any activities before we generate one? (yes/no): ");
                 bool addToList = Console.ReadLine().ToLower() == "yes";
-                Console.WriteLine();
-
-                while (addToList)
+                if (addToList)
                 {
-                    Console.Write("What would you like to add? ");
-                    string userAddition = Console.ReadLine();
-                    activities.Add(userAddition);
-
-                    Console.WriteLine("Here is the updated list of activities:");
-                    foreach (string activity in activities)
+                    Console.WriteLine();
+                    while (addToList)
                     {
-                        Console.Write($"{activity} ");
-                        Thread.Sleep(250);
-                    }
-                    Console.WriteLine();
+                        Console.Write("What would you like to add? ");
+                        string userAddition = Console.ReadLine();
+                        activities.Add(userAddition);
 
-                    Console.Write("Would you like to add more? (yes/no): ");
-                    addToList = Console.ReadLine().ToLower() == "yes";
-                    Console.WriteLine();
+                        Console.WriteLine("Updated activities:");
+                        foreach (string activity in activities)
+                        {
+                            Console.Write($"{activity} ");
+                            Thread.Sleep(250);
+                        }
+                        Console.WriteLine();
+
+                        Console.Write("Would you like to add more? (yes/no): ");
+                        addToList = Console.ReadLine().ToLower() == "yes";
+                    }
                 }
             }
 
@@ -94,7 +97,6 @@ namespace ProblematicProblem
 
                 Console.Write($"Ah got it! {randomActivity}, your random activity is: {userName}! Is this ok or do you want to grab another activity? (keep/redo): ");
                 cont = Console.ReadLine().ToLower() == "redo";
-                Console.WriteLine();
             }
         }
     }
