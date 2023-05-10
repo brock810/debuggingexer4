@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using System.Threading;
 
 namespace ProblematicProblem
@@ -107,7 +108,7 @@ namespace ProblematicProblem
                     continue;
                 }
 
-                Console.Write($"Ah got it! {randomActivity}, your random activity is: {userName}! Do you want to generate another random activity? (yes/no): ");
+                Console.Write($"Ah got it! {userName}, your random activity is: {randomActivity}! Do you want to generate another random activity? (yes/no): ");
                 cont = Console.ReadLine().ToLower() == "yes";
 
             }
